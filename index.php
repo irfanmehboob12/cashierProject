@@ -25,17 +25,11 @@ include 'dbconnection.php';
 ?>
 
 <script>
-   function toSubmit(){
-      alert('If you want to Add an Entry, Press Ok button.');
-     // window.location.href = "submit_form.php";
-      return false;
-   }
-
-   function toSubmit1(){
-      alert('If you want to Delete an Entry, Press Ok button.');
-     // window.location.href = "submit_form.php";
-      return false;
-   }
+   function submit() {
+            let form = document.getElementById("form");
+            form.submit();
+           // alert("Data stored in database!");
+        }
 </script>
 
     </head>
@@ -51,7 +45,7 @@ include 'dbconnection.php';
   <div  style="margin-left:100px;width: 1200px;height:800px; background-color:#f1f1f1;">
     <div  style="" Class="container">
     
-    <form  action="submit_form.php" method="post" >
+    <form id="form" action="submit_form.php" method="post" >
     <h6 style="margin-left:50px;margin-top:20px; position:absolute;">Trasaction Form</h6>
   <div  style="width:150px;margin-left:50px;margin-top:50px;position:absolute;display:inline-block " class="mb-3">
     
@@ -77,7 +71,7 @@ include 'dbconnection.php';
   
 </select>
   
-  <button    onclick="toSubmit()" style="position:absolute;margin-top:50px;margin-left:1050px;display:inline-block" type="submit"  class="btn btn-primary">POST</button>
+  <button    onclick=""  data-bs-toggle="modal" data-bs-target="#exampleModal" style="position:absolute;margin-top:50px;margin-left:1050px;display:inline-block" type="button"  class="btn btn-primary">POST</button>
 </form>
 
 <hr style="width:76%;text-align:left;margin-left:50px;margin-top:130px;position:absolute;">
@@ -125,6 +119,8 @@ include 'dbconnection.php';
 
 </tr>
 
+<!-- Button trigger modal -->
+
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -135,11 +131,11 @@ include 'dbconnection.php';
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        If you want to POST, then press ok.
+        <p>If you want to Add Trasaction, then Press Ok.</P>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">OK</button>
+        <button onclick="submit()" type="button" class="btn btn-primary">OK</button>
       </div>
     </div>
   </div>
