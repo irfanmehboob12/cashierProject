@@ -24,13 +24,44 @@
 include 'dbconnection.php';
 ?>
 
-<script>
-   function submit() {
-            let form = document.getElementById("form");
-            form.submit();
-           // alert("Data stored in database!");
-        }
-</script>
+
+  <script>
+
+function setEventId(event_id){
+
+  var link = document.getElementById("btn1");
+  link.setAttribute("href", "delete.php?userid="+event_id);
+
+  
+}
+ 
+function setEventId2(event_id){
+  
+  
+
+document.getElementById("myForm").action = "update_form.php?userid="+event_id;
+//window.location.href='index.php?userid='+event_id;
+
+return false;
+}
+
+
+
+ function submitform()
+ {
+ var id= document.getElementById("custid").value; 
+ window.location.href='update_form.php?userid='+id;
+ alert(id);
+  
+   
+ }
+ function submit()
+ {
+  
+  document.getElementById("form").submit();  
+ }
+    
+  </script>
 
     </head>
   <body>
@@ -127,7 +158,7 @@ include 'dbconnection.php';
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Transaction</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -140,6 +171,81 @@ include 'dbconnection.php';
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Delete Transaction</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>If you want to Delete Trasaction, then Press Ok.</P>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a  type="button" id="btn1" class="btn btn-primary">OK</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <?php  
+ 
+ 
+//$result = mysqli_query($conn,"SELECT * FROM transactions WHERE tid='" . $_GET['userid'] . "'");
+//$row= mysqli_fetch_array($result);
+//echo $row['tid'];
+//echo  $_GET['userid'];
+?>
+ <div   style="" class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog position-relative ">
+   <div  style="height:300px;width:1200px;" class="modal-content position-absolute top-50 start-50 translate-middle-x">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">Update Transaction</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+  <form id="myForm" action="" method="post" >
+<h6 style="margin-left:50px;margin-top:20px; position:absolute;">Trasaction Form</h6>
+<div  style="width:150px;margin-left:50px;margin-top:50px;position:absolute;display:inline-block " class="mb-3">
+
+<input name="date" placeholder="yyyy/mm/dd" type="text" class="form-control" value="yyyy/mm/dd" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+</div>
+<div style="width:170px;position:absolute;margin-left:250px;margin-top:50px;display:inline-block" class="mb-3">
+
+<input name="accountname" placeholder="Name" type="text" class="form-control" value="Account Name" id="exampleInputPassword1">
+</div>
+<div style="width:150px;position:absolute;margin-left:450px;margin-top:50px;display:inline-block" class="mb-3">
+
+<input name="description" placeholder="Description" type="text" class="form-control" value="Description" id="exampleInputPassword1">
+</div>
+<div style="width:150px;position:absolute;margin-left:650px;margin-top:50px;display:inline-block" class="mb-3">
+<input name="amount" placeholder="Amount" type="text" class="form-control"  value="Amount" id="exampleInputPassword1">
+</div>
+
+<select   name="transactiontype" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
+<option selected>Income/Expense</option>
+<option value="Income" >Income</option>
+<option value="Expense">Expense</option>
+
+</select>
+</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button  type="submit" id="btn3" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+ 
+
+
+
 
 <?php 
 
@@ -222,7 +328,7 @@ $transactions=mysqli_query($conn, $sql);
 if($transactions)
 {
 
-
+$id=1;
 foreach($transactions as $data )
 {
     $total=$total+$data["Amount"];
@@ -244,11 +350,12 @@ echo '<tr>
 <td>'.$data["Amount"].'</td>
 <td>'.$data["transType"].'</td>
 <td>'.$balance.'</td>
-<td><a class="btn btn-primary"href="update.php?userid='.$data["tid"].'">Edit</a> <a onclick="toSubmit1()" class="btn btn-danger" href="delete.php?userid='.$data["tid"].'">Del</a></td>
+<td><a class="btn btn-primary" onclick="setEventId2('.$data['tid'].')"  data-bs-toggle="modal" data-bs-target="#exampleModal2"  href="">Edit</a> <a id='.$data["tid"].' onclick="setEventId('.$data["tid"].')"  data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-danger" href="delete.php?userid='.$data["tid"].'">Del</a></td>
 
 
 </tr>';
 $rbalance=$rbalance+$balance;
+$id=$id+1;
 } //end foreach*/
 }
 echo '<p style="position:absolute;margin-top:550px;margin-left:600px;">'.$total.'</p>';
@@ -261,6 +368,10 @@ if(isset($_POST['submit']))
 {
    display();
 } 
+
+
+
+
 ?>
 
 </table>

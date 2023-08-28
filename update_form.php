@@ -2,9 +2,11 @@
 
 
 include('dbconnection.php');
+//include('index.php');
  $id=$_GET['userid'];
+
  $desc=$_POST['description'];
- $date=$_POST['date'];
+  $date=$_POST['date'];
  $name=$_POST['accountname'];
  $amount=$_POST['amount'];
  $transType=$_POST['transactiontype'];
@@ -16,6 +18,7 @@ include('dbconnection.php');
    if($result)
    {
     header("Location: index.php");
+
 
    }
 

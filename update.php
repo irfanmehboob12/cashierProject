@@ -34,22 +34,22 @@ $row= mysqli_fetch_array($result);
 <h6 style="margin-left:50px;margin-top:20px; position:absolute;">Trasaction Form</h6>
 <div  style="width:150px;margin-left:50px;margin-top:50px;position:absolute;display:inline-block " class="mb-3">
 
-<input name="date" value="<?php echo $row['date']; ?>" type="text" class="form-control" value="yyyy/mm/dd" id="exampleInputEmail1" aria-describedby="emailHelp">
+<input name="date1" value="<?php echo $row['date']; ?>" type="text" class="form-control" value="yyyy/mm/dd" id="exampleInputEmail1" aria-describedby="emailHelp">
 
 </div>
 <div style="width:170px;position:absolute;margin-left:250px;margin-top:50px;display:inline-block" class="mb-3">
 
-<input name="accountname" value="<?php echo $row['AccountName']; ?>" type="text" class="form-control" value="Account Name" id="exampleInputPassword1">
+<input name="accountname1" value="<?php echo $row['AccountName']; ?>" type="text" class="form-control" value="Account Name" id="exampleInputPassword1">
 </div>
 <div style="width:150px;position:absolute;margin-left:450px;margin-top:50px;display:inline-block" class="mb-3">
 
-<input name="description" value="<?php echo $row['Description']; ?>" type="text" class="form-control" value="Description" id="exampleInputPassword1">
+<input name="description1" value="<?php echo $row['Description']; ?>" type="text" class="form-control" value="Description" id="exampleInputPassword1">
 </div>
 <div style="width:150px;position:absolute;margin-left:650px;margin-top:50px;display:inline-block" class="mb-3">
-<input name="amount" value="<?php echo $row['Amount']; ?>" type="text" class="form-control"  value="Amount" id="exampleInputPassword1">
+<input name="amount1" value="<?php echo $row['Amount']; ?>" type="text" class="form-control"  value="Amount" id="exampleInputPassword1">
 </div>
 
-<select   name="transactiontype" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
+<select   name="transactiontype1" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
 <option selected><?php echo $row['transType']; ?></option>
 <option value="Income" >Income</option>
 <option value="Expense">Expense</option>
