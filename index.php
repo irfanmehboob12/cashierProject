@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-   <!-- #region -->
+    
+   
+    <!-- #region -->
 <style>
    .button {
   background-color: #4CAF50; /* Green */
@@ -44,7 +46,11 @@ document.getElementById("myForm").action = "update_form.php?userid="+event_id;
 
 return false;
 }
-
+function showAlert()
+ {
+ var elem= document.getElementById("add-alert"); 
+ link.setAttribute("display", "inline-block");
+}
 
 
  function submitform()
@@ -58,9 +64,100 @@ return false;
  function submit()
  {
   
-  document.getElementById("form").submit();  
- }
+ var x1=document.getElementById("x1").value; 
+ var x2= document.getElementById("x2").value;
+ var x3= document.getElementById("x3").value; 
+ var x4= document.getElementById("x4").value; 
+ var x5=document.getElementById("x5").value; 
+//alert(x1+" "+x2+" "+x3+" "+x4+" "+x5);
+
+    var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+    var name = document.getElementById('x2').value;
+    var date=  document.getElementById('x1').value;
     
+
+   if((x1==""  || x1=="yyyy/mm/dd") || (x2=="" || x2=="Account Name" )|| (x3=="" || x3=="Description") || (x4=="" || x4=="Amount") || (x5=="" || x5=="Income/Expense") || !regName.test(name) || !isValidDate(date))
+   {
+    document.getElementById("demo").innerHTML="Note: All fields must be filled correctly, no field should be empty. "; 
+   //alert("Note: All fields must be filled correctly.");
+      //window.load("index.php");
+      
+   }
+  
+ else
+ {
+
+  document.getElementById("form").submit(); 
+ }
+   
+   
+ }
+ 
+
+ function validate(){
+    var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+    var name = document.getElementById('x2').value;
+    //alert(name);
+    if(!regName.test(name)){
+        alert('Please enter your full name (first & last name).');
+        document.getElementById('x2').focus();
+        return false;
+    }else{
+        //alert('Valid name given.');
+        return true;
+    }
+}
+
+function isValidDate(date) {
+ 
+ // Date format: YYYY-MM-DD
+ var datePattern = /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+
+ // Check if the date string format is a match
+ var matchArray = date.match(datePattern);
+ if (matchArray == null) {
+     return false;
+ }
+
+ // Remove any non digit characters
+ var dateString = date.replace(/\D/g, ''); 
+
+ // Parse integer values from the date string
+ var year = parseInt(dateString.substr(0, 4));
+ var month = parseInt(dateString.substr(4, 2));
+ var day = parseInt(dateString.substr(6, 2));
+
+ // Define the number of days per month
+ var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+ // Leap years
+ if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
+     daysInMonth[1] = 29;
+ }
+
+ if (month < 1 || month > 12 || day < 1 || day > daysInMonth[month - 1]) {
+     return false;
+ }
+ return true;
+}
+
+function validateDate()
+{
+  var date = document.getElementById('x1').value;
+   if(!isValidDate(date))
+   {
+       alert("Enter Date ( YYYY / MM / DD )");
+
+       document.getElementById('x1').focus();
+        return false;
+    }else{
+        //alert('Valid name given.');
+        return true;
+    }
+
+}
+
+
   </script>
 
     </head>
@@ -72,6 +169,10 @@ return false;
 
 
 
+ 
+
+
+
 
   <div  style="margin-left:100px;width: 1200px;height:800px; background-color:#f1f1f1;">
     <div  style="" Class="container">
@@ -80,28 +181,28 @@ return false;
     <h6 style="margin-left:50px;margin-top:20px; position:absolute;">Trasaction Form</h6>
   <div  style="width:150px;margin-left:50px;margin-top:50px;position:absolute;display:inline-block " class="mb-3">
     
-    <input name="date" type="text" class="form-control" placeholder="yyyy/mm/dd" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input id="x1" onclick=" validateDate()" name="date" type="text" class="form-control" value="yyyy/mm/dd" id="exampleInputEmail1" aria-describedby="emailHelp">
     
   </div>
   <div style="width:150px;position:absolute;margin-left:250px;margin-top:50px;display:inline-block" class="mb-3">
     
-    <input name="accountname" type="text" class="form-control" placeholder="Account Name" id="exampleInputPassword1">
+    <input  id="x2" onclick="validate()" name="accountname" type="text" class="form-control" value="Name" id="exampleInputPassword1">
   </div>
   <div style="width:150px;position:absolute;margin-left:450px;margin-top:50px;display:inline-block" class="mb-3">
     
-    <input name="description" type="text" class="form-control" placeholder="Description" id="exampleInputPassword1">
+    <input id="x3"   name="description" type="text" class="form-control" value="Description" id="exampleInputPassword1">
   </div>
   <div style="width:150px;position:absolute;margin-left:650px;margin-top:50px;display:inline-block" class="mb-3">
-    <input name="amount" type="text" class="form-control"  placeholder="Amount" id="exampleInputPassword1">
+    <input  id="x4"  name="amount" type="text" class="form-control"  value="Amount" id="exampleInputPassword1">
   </div>
 
-  <select  name="transactiontype" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
+  <select id="x5"   name="transactiontype" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
   <option selected>Income/Expense</option>
   <option value="Income">Income</option>
   <option value="Expense">Expense</option>
   
 </select>
-  
+  <p style="margin-left:50px;position:absolute;font-weight:bold; margin-top:100px; font-size: 17px;color:red;" id="demo"></p>
   <button    onclick=""  data-bs-toggle="modal" data-bs-target="#exampleModal" style="position:absolute;margin-top:50px;margin-left:1050px;display:inline-block" type="button"  class="btn btn-primary">POST</button>
 </form>
 
@@ -166,7 +267,7 @@ return false;
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button onclick="submit()" type="button" class="btn btn-primary">OK</button>
+        <button id="btn5" name="addbutton"onclick="submit()" type="button" class="btn btn-primary">OK</button>
       </div>
     </div>
   </div>
@@ -386,8 +487,24 @@ if(isset($_POST['submit']))
  <div>   
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+$('#btn5').click(function() {
+    $('#exampleModal').modal('hide');
+});
+
+
+
+$('#x1,#x2,#x3,#x4').click(function() {
+  $(this).attr("value","");
+});
+
+
+
+
 
 </script>
+
 
 
 
