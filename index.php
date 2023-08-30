@@ -141,12 +141,36 @@ function isValidDate(date) {
  return true;
 }
 
+function validateAmount()
+{
+  
+  var amount = document.getElementById('x4').value;
+  alert(typeof 1234);
+     if(typeof amount === 'string')
+     {
+      alert("Enter an Amount in integer value(e.g; 32347)");
+
+      document.getElementById('x4').focus();
+       return false;
+
+
+     }
+     else
+     {
+      return true;
+
+     }
+
+
+}
+
+
 function validateDate()
 {
   var date = document.getElementById('x1').value;
    if(!isValidDate(date))
    {
-       alert("Enter Date ( YYYY / MM / DD )");
+       alert("Enter Date ( YYYY - MM - DD )");
 
        document.getElementById('x1').focus();
         return false;
@@ -193,7 +217,7 @@ function validateDate()
     <input id="x3"   name="description" type="text" class="form-control" value="Description" id="exampleInputPassword1">
   </div>
   <div style="width:150px;position:absolute;margin-left:650px;margin-top:50px;display:inline-block" class="mb-3">
-    <input  id="x4"  name="amount" type="text" class="form-control"  value="Amount" id="exampleInputPassword1">
+    <input  id="x4" onclick="validateAmount()" name="amount" type="text" class="form-control"  value="Amount" id="exampleInputPassword1">
   </div>
 
   <select id="x5"   name="transactiontype" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
@@ -221,7 +245,7 @@ function validateDate()
   </div>
   <div style="width:150px;position:absolute;margin-left:550px;margin-top:200px;display:inline-block" class="mb-3">
     
-    <input name="name" type="text" class="form-control" value="Account Name" id="exampleInputPassword1">
+    <input name="name" type="text" class="form-control" value="Account" id="exampleInputPassword1">
   </div>
  
 
