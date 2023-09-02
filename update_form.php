@@ -7,9 +7,9 @@ include('dbconnection.php');
 
  $desc=$_POST['description'];
   $date=$_POST['date'];
- $name=$_POST['accountname'];
+ $name=$_POST['name'];
  $amount=$_POST['amount'];
- $transType=$_POST['transactiontype'];
+ $transType=$_POST['transtype'];
 
  $sql = "UPDATE transactions SET AccountName='$name',Description='$desc',date='$date',amount='$amount',transType='$transType' WHERE tid=$id";
  $result = mysqli_query($conn,$sql);

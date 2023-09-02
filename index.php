@@ -1,3 +1,10 @@
+
+<?php
+//header("Content-Type: application/json; charset=UTF-8");
+// Start the session
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -37,15 +44,30 @@ function setEventId(event_id){
   
 }
  
-function setEventId2(event_id){
+function setEventId2(tid,date,name,Desc,transtype,amount){
   
-  
+  //let startDate = new Date(date) ;
+ document.getElementById("name").value=name;
+ document.getElementById("date").value=date;
+ document.getElementById("descrip").value=Desc;
+ document.getElementById("amount").value=amount;
+ document.getElementById("transtype").value=transtype;
 
-document.getElementById("myForm").action = "update_form.php?userid="+event_id;
+
+  
+document.getElementById("myForm").action = "update_form.php?userid="+tid;
+//console.log(transty);
+
+alert(startDate);
+
+
+
 //window.location.href='index.php?userid='+event_id;
-
 return false;
 }
+
+
+
 function showAlert()
  {
  var elem= document.getElementById("add-alert"); 
@@ -67,7 +89,7 @@ function showAlert()
  var x1=document.getElementById("x1").value; 
  var x2= document.getElementById("x2").value;
  var x3= document.getElementById("x3").value; 
- var x4= document.getElementById("x4").value; 
+ var amount= document.getElementById("x4").value; 
  var x5=document.getElementById("x5").value; 
 //alert(x1+" "+x2+" "+x3+" "+x4+" "+x5);
 
@@ -76,7 +98,7 @@ function showAlert()
     var date=  document.getElementById('x1').value;
     
 
-   if((x1==""  || x1=="yyyy/mm/dd") || (x2=="" || x2=="Account Name" )|| (x3=="" || x3=="Description") || (x4=="" || x4=="Amount") || (x5=="" || x5=="Income/Expense") || !regName.test(name) || !isValidDate(date))
+   if((x1==""  || x1=="yyyy/mm/dd") || (x2=="" || x2=="Account Name" )|| (x3=="" || x3=="Description") || (x4=="" || x4=="Amount") || (x5=="" || x5=="Income/Expense") || !regName.test(name) || !isValidDate(date) || !(!isNaN(amount) && amount>= 0 && amount.length > 0))
    {
     document.getElementById("demo").innerHTML="Note: All fields must be filled correctly, no field should be empty. "; 
    //alert("Note: All fields must be filled correctly.");
@@ -141,26 +163,21 @@ function isValidDate(date) {
  return true;
 }
 
+
+function checkSalary(amount) {
+  
+    if(!isNaN(amount) && amount>= 0 && amount.length > 0) {
+        return true;
+    } else {
+        alert("you must enter a valid Amount (e.g; 236754) ")
+        return false;
+    }
+}
 function validateAmount()
 {
   
   var amount = document.getElementById('x4').value;
-  alert(typeof 1234);
-     if(typeof amount === 'string')
-     {
-      alert("Enter an Amount in integer value(e.g; 32347)");
-
-      document.getElementById('x4').focus();
-       return false;
-
-
-     }
-     else
-     {
-      return true;
-
-     }
-
+  checkSalary(amount);
 
 }
 
@@ -189,7 +206,7 @@ function validateDate()
  
   <!-- Modal -->
 
-
+ 
 
 
 
@@ -245,7 +262,7 @@ function validateDate()
   </div>
   <div style="width:150px;position:absolute;margin-left:550px;margin-top:200px;display:inline-block" class="mb-3">
     
-    <input name="name" type="text" class="form-control" value="Account" id="exampleInputPassword1">
+    <input name="name" type="text" class="form-control" value="Name" id="exampleInputPassword1">
   </div>
  
 
@@ -318,11 +335,14 @@ function validateDate()
 
  <?php  
  
- 
-//$result = mysqli_query($conn,"SELECT * FROM transactions WHERE tid='" . $_GET['userid'] . "'");
+ //session_start();
+//echo $_GET['myVar'];
+//$result = mysqli_query($conn,"SELECT * FROM transactions WHERE tid='" . $_SESSION['myVar'] . "'");
 //$row= mysqli_fetch_array($result);
 //echo $row['tid'];
 //echo  $_GET['userid'];
+//echo $_GET["x"];
+
 ?>
  <div   style="" class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog position-relative ">
@@ -337,22 +357,22 @@ function validateDate()
 <h6 style="margin-left:50px;margin-top:20px; position:absolute;">Trasaction Form</h6>
 <div  style="width:150px;margin-left:50px;margin-top:50px;position:absolute;display:inline-block " class="mb-3">
 
-<input name="date" placeholder="yyyy/mm/dd" type="text" class="form-control" value="yyyy/mm/dd" id="exampleInputEmail1" aria-describedby="emailHelp">
+<input id="date" name="date" placeholder="yyyy/mm/dd" type="text" class="form-control" value="<?php echo $row['date']; ?>" id="exampleInputEmail1" aria-describedby="emailHelp">
 
 </div>
 <div style="width:170px;position:absolute;margin-left:250px;margin-top:50px;display:inline-block" class="mb-3">
 
-<input name="accountname" placeholder="Name" type="text" class="form-control" value="Account Name" id="exampleInputPassword1">
+<input id="name" name="name" placeholder="Name" type="text" class="form-control" value="<?php echo $row['AccountName']; ?>" id="exampleInputPassword1">
 </div>
 <div style="width:150px;position:absolute;margin-left:450px;margin-top:50px;display:inline-block" class="mb-3">
 
-<input name="description" placeholder="Description" type="text" class="form-control" value="Description" id="exampleInputPassword1">
+<input id="descrip" name="description" placeholder="Description" type="text" class="form-control" value="<?php echo $row['Description']; ?>" id="exampleInputPassword1">
 </div>
 <div style="width:150px;position:absolute;margin-left:650px;margin-top:50px;display:inline-block" class="mb-3">
-<input name="amount" placeholder="Amount" type="text" class="form-control"  value="Amount" id="exampleInputPassword1">
+<input id="amount" name="amount" placeholder="Amount" type="text" class="form-control"  value="<?php echo $row['Amount']; ?>" id="exampleInputPassword1">
 </div>
 
-<select   name="transactiontype" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
+<select  id="transtype" name="transtype" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
 <option selected>Income/Expense</option>
 <option value="Income" >Income</option>
 <option value="Expense">Expense</option>
@@ -378,20 +398,22 @@ function validateDate()
 
 function display()
 {
-    include 'dbconnection.php';
+include 'dbconnection.php';
 $sdate =$_POST['sdate'];
 $edate =$_POST['edate'];
 $name=$_POST['name'];
+
+
 $transtype=$_POST['transtype'];
 
- if($sdate!='yyyy/mm/dd' && $edate!='yyyy/mm/dd'  && $name!='Account Name' && ($transtype=='Income' || $transtype=='Expense'))
+ if($sdate!='yyyy/mm/dd' && $edate!='yyyy/mm/dd'  && $name!='Name' && ($transtype=='Income' || $transtype=='Expense'))
 {
  
 $sql="select * from transactions where ('$sdate'<date && '$edate'>date) && AccountName LIKE '%$name%' && transType LIKE '%$transtype%' ;";
 }
 else
 {
- if ($sdate!='yyyy/mm/dd' && $edate!='yyyy/mm/dd'&& $name!='Account Name')
+ if ($sdate!='yyyy/mm/dd' && $edate!='yyyy/mm/dd'&& $name!='Name')
 {
 
   $sql="select * from transactions where ('$sdate'<date && '$edate'>date) && AccountName LIKE '%$name%';";
@@ -404,7 +426,7 @@ $sql="select * from transactions where ('$sdate'<date && '$edate'>date) && trans
 }
 else 
 {
-    if ($name!='Account Name' && ($transtype=='Income' || $transtype=='Expense'))
+    if ($name!='Name' && ($transtype=='Income' || $transtype=='Expense'))
      { 
         $sql="select * from transactions where  AccountName LIKE '%$name%' && transType LIKE '%$transtype%';";
     }
@@ -412,11 +434,12 @@ else
     {
         if ($sdate!='yyyy/mm/dd' && $edate!='yyyy/mm/dd')
         {
-            $sql="select * from transactions where ('$sdate'<date && '$edate'>date);";
+            $sql="select * from transactions where ('$sdate'<=date && '$edate'>=date);";
+          
         }
         else
         {
-            if ($name!='Account Name')
+            if ($name!='Name')
             {
                 $sql="select * from transactions where  AccountName LIKE '%$name%';";
             }
@@ -445,22 +468,40 @@ else ($sdate!='yyyy/mm/dd' && $edate!='yyyy/mm/dd')
 $sql="select * from transactions where ('$sdate'<date && '$edate'>date);"
 }
 */
+//echo $sql;
+
 
 $rbalance=0;
 $balance=0;
 $total=0;
 $transactions=mysqli_query($conn, $sql);
+
 if($transactions)
 {
+  
 
 $id=1;
 foreach($transactions as $data )
 {
+ $jsonData = json_encode($data);
+ echo'<script>
+ var js_data = '.json_encode($jsonData).'
+ var js_obj_data = JSON.parse(js_data );
+ console.log(js_obj_data.name);
+ 
+
+
+
+
+
+
+  </script>';
+  //echo $jsonData;
     $total=$total+$data["Amount"];
     if($data["transType"]=='Income')
     {
        $balance=$balance+$data["Amount"];
-       
+      
     }
     else
     {
@@ -468,16 +509,17 @@ foreach($transactions as $data )
         
 
     }
+//$num = 6666;
+$date=date_create($data["date"]);
+$d=date_format($date,"d M, Y.");
 echo '<tr>
-<td>'.$data["date"].'</td>
+<td>'.$d.'</td>
 <td>'.$data["AccountName"].'</td>
 <td>'.$data["Description"].'</td>
 <td>'.$data["Amount"].'</td>
 <td>'.$data["transType"].'</td>
 <td>'.$balance.'</td>
-<td><a class="btn btn-primary" onclick="setEventId2('.$data['tid'].')"  data-bs-toggle="modal" data-bs-target="#exampleModal2"  href="">Edit</a> <a id='.$data["tid"].' onclick="setEventId('.$data["tid"].')"  data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-danger" href="delete.php?userid='.$data["tid"].'">Del</a></td>
-
-
+<td><a id="update12" class="btn btn-primary" onclick="setEventId2('.$data['tid'].',\''.$data["date"].'\',\''.$data['AccountName'].'\',\''.$data['Description'].'\',\''.$data['transType'].'\',\''.$data['Amount'].'\')"  data-bs-toggle="modal" data-bs-target="#exampleModal2"  href="">Edit</a> <a id='.$data["tid"].' onclick="setEventId('.$data["tid"].')"  data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-danger" href="delete.php?userid='.$data["tid"].'">Del</a></td>
 </tr>';
 $rbalance=$rbalance+$balance;
 $id=$id+1;
@@ -516,6 +558,19 @@ if(isset($_POST['submit']))
 $('#btn5').click(function() {
     $('#exampleModal').modal('hide');
 });
+
+function myGreeting()
+{
+  alert("YYYYY");
+  $('#exampleModal2').modal('show');
+}
+    
+$('#update12').click(function() {
+    //alert("KKKK");
+ // $('#exampleModal2').modal('show');
+//const myTimeout = setTimeout(myGreeting, 5000);
+});
+
 
 
 
