@@ -198,6 +198,68 @@ function validateDate()
 
 }
 
+function validateDate1()
+{
+  var date = document.getElementById('date').value;
+   if(!isValidDate(date))
+   {
+       alert("Enter Date ( YYYY - MM - DD )");
+
+       document.getElementById('date').focus();
+        return false;
+    }else{
+      //document.getElementById("date").blur();
+        //alert('Valid name given.');
+        return true;
+    }
+
+}
+
+function validateName()
+{
+  var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+    var name = document.getElementById('name').value;
+    //alert(name);
+    if(!regName.test(name)){
+        alert('Please enter your full name (first & last name).');
+        document.getElementById('name').focus();
+        return false;
+    }else{
+        //alert('Valid name given.');
+        return true;
+    
+
+}
+}
+
+
+function validateAmountEdit()
+{
+
+
+  var amount = document.getElementById('amount').value;
+  checkSalary(amount);
+
+}
+
+
+function validateDate1()
+{
+  var date = document.getElementById('date').value;
+   if(!isValidDate(date))
+   {
+       alert("Enter Date ( YYYY - MM - DD )");
+
+       document.getElementById('date').focus();
+        return false;
+    }else{
+      //document.getElementById("date").blur();
+        //alert('Valid name given.');
+        return true;
+    }
+
+}
+
 
   </script>
 
@@ -357,19 +419,19 @@ function validateDate()
 <h6 style="margin-left:50px;margin-top:20px; position:absolute;">Trasaction Form</h6>
 <div  style="width:150px;margin-left:50px;margin-top:50px;position:absolute;display:inline-block " class="mb-3">
 
-<input id="date" name="date" placeholder="yyyy/mm/dd" type="text" class="form-control" value="<?php echo $row['date']; ?>" id="exampleInputEmail1" aria-describedby="emailHelp">
+<input onclick="validateDate1()" id="date" name="date" placeholder="yyyy/mm/dd" type="text" class="form-control" value="<?php echo $row['date']; ?>" id="exampleInputEmail1" aria-describedby="emailHelp">
 
 </div>
 <div style="width:170px;position:absolute;margin-left:250px;margin-top:50px;display:inline-block" class="mb-3">
 
-<input id="name" name="name" placeholder="Name" type="text" class="form-control" value="<?php echo $row['AccountName']; ?>" id="exampleInputPassword1">
+<input id="name" onclick="validateName()" name="name" placeholder="Name" type="text" class="form-control" value="<?php echo $row['AccountName']; ?>" id="exampleInputPassword1">
 </div>
 <div style="width:150px;position:absolute;margin-left:450px;margin-top:50px;display:inline-block" class="mb-3">
 
-<input id="descrip" name="description" placeholder="Description" type="text" class="form-control" value="<?php echo $row['Description']; ?>" id="exampleInputPassword1">
+<input id="descrip" onclick="validaDescription()"  name="description" placeholder="Description" type="text" class="form-control" value="<?php echo $row['Description']; ?>" id="exampleInputPassword1">
 </div>
 <div style="width:150px;position:absolute;margin-left:650px;margin-top:50px;display:inline-block" class="mb-3">
-<input id="amount" name="amount" placeholder="Amount" type="text" class="form-control"  value="<?php echo $row['Amount']; ?>" id="exampleInputPassword1">
+<input id="amount" onclick="validateAmountEdit()" name="amount" placeholder="Amount" type="text" class="form-control"  value="<?php echo $row['Amount']; ?>" id="exampleInputPassword1">
 </div>
 
 <select  id="transtype" name="transtype" style="width:170px;position:absolute;margin-left:850px;margin-top:50px;display:inline-block" class="form-select" aria-label="Default select example">
